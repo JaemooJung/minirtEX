@@ -40,7 +40,27 @@ t_color3	ray_color(t_ray *r)
 	return (vplus(vmult(color3(1, 1, 1), 1.0 - t), vmult(color3(0.5, 0.7, 1.0), t)));
 }
 
-void	set_face_normal(t_ray *r, t_hit_recode *rec)
+t_color3	ray_color_obj(t_ray *ray ,t_object *object)
+{
+	double t;
+	t_vec3 n;
+	t_hit_record rec;
+
+	rec.tmin = 0;
+	rec.tmax = INFINITY;
+
+	if (hit(object, ray, &rec))
+		return (vmult(vplus(rec.normal, color3(1, 1, 1)), 0.5));
+	else
+	{
+		//ray의 방향벡터의 y 값을 기준으로 그라데이션을 주기 위한 계수.
+		t = 0.5 * (ray->dir.y + 1.0);
+		// (1-t) * 흰색 + t * 하늘색
+		return (vplus(vmult(color3(1, 1, 1), 1.0 - t), vmult(color3(0.5, 0.7, 1.0), t)));
+	}
+}
+
+void	set_face_normal(t_ray *r, t_hit_record *rec)
 {
 	rec->front_face = vdot(r->dir, rec->normal) < 0;
 	if (rec->front_face)
@@ -49,7 +69,7 @@ void	set_face_normal(t_ray *r, t_hit_recode *rec)
 		rec->normal = vmult(rec->normal, -1);
 }
 
-t_bool	hit_sphere(t_sphere *sp, t_ray *ray, t_hit_recode *rec)
+t_bool	hit_sphere(t_object *object, t_ray *ray, t_hit_record *rec)
 {
 	t_vec3	oc; //방향벡터로 나타낸 구의 중심.
 	//a, b, c는 각각 t에 관한 2차 방정식의 계수
@@ -60,6 +80,8 @@ t_bool	hit_sphere(t_sphere *sp, t_ray *ray, t_hit_recode *rec)
 	double	sqrtd;
 	double	root;
 
+	t_sphere	*sp;
+	sp = (t_sphere *)object->element;
 	oc = vminus(ray->orig, sp->center);
 	a = vlength2(ray->dir);
 	half_b = vdot(oc, ray->dir);
@@ -86,7 +108,7 @@ t_color3	ray_color_sph(t_ray *ray, t_sphere *sphere)
 {
 	double t;
 	t_vec3 n;
-	t_hit_recode rec;
+	t_hit_record rec;
 
 	rec.tmin = 0;
 	rec.tmax = INFINITY;
@@ -102,3 +124,32 @@ t_color3	ray_color_sph(t_ray *ray, t_sphere *sphere)
 	}
 }
 
+t_bool	hit(t_object *obj, t_ray *ray, t_hit_record *rec)
+{
+	t_bool		did_hit;
+	t_hit_record	tmp;
+
+	tmp = *rec;
+	did_hit = FALSE;
+	while (obj != NULL)
+	{
+		if (hit_obj(obj, ray, &tmp))
+		{
+			did_hit = TRUE;
+			tmp.tmax = tmp.t;
+			*rec = tmp;
+		}
+		obj = obj->next;
+	}
+	return (did_hit);
+}
+
+t_bool	hit_obj(t_object *obj, t_ray *ray, t_hit_record *rec)
+{
+	t_bool	did_hit;
+
+	did_hit = FALSE;
+	if (obj->type == SP)
+		did_hit = hit_sphere(obj, ray, rec);
+	return (did_hit);
+}

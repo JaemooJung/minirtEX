@@ -24,6 +24,9 @@ t_vec3		vcross(t_vec3 vec, t_vec3 vec2);
 t_vec3		vunit(t_vec3 vec);
 t_vec3		vmin(t_vec3 vec1, t_vec3 vec2);
 
-int encode_color(t_color3 color);
+int			encode_color(t_color3 color);
+
+void		obj_add(t_object **objects, t_object *new);
+t_object	*obj_last(t_object *objects);
 
 #endif

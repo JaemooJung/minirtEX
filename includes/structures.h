@@ -57,7 +57,7 @@ typedef int	t_bool;
 # define FALSE 0
 # define TRUE 1
 
-typedef struct s_hit_recode
+typedef struct s_hit_record
 {
 	t_point3	p;
 	t_vec3		normal;
@@ -65,6 +65,17 @@ typedef struct s_hit_recode
 	double		tmax;
 	double		t;
 	t_bool		front_face;
-} t_hit_recode;
+} t_hit_record;
+
+typedef int t_object_type;
+
+# define SP 0
+
+typedef struct s_object
+{
+	t_object_type	type;
+	void			*element;
+	void			*next;
+} t_object;
 
 #endif
