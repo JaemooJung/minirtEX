@@ -1,18 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jaemjung <jaemjung@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/06 15:43:52 by jaemjung          #+#    #+#             */
-/*   Updated: 2022/06/06 15:44:12 by jaemjung         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef __MINIRT_H__
 #define __MINIRT_H__
 
-#include <stdlib.h>
+#include "structures.h"
+#include "utils.h"
+#include "scene.h"
+#include "trace.h"
+#include "mlx.h"
+
+#define X_EVENT_KEY_EXIT 17
+#define X_EVENT_KEY_ESC 53
 
 #endif

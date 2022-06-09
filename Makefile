@@ -1,10 +1,14 @@
-NAME 		=	so_long
+NAME 		=	miniRT
 
 CC 			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	
 RM			=	rm -f
 
 FILES 		=	main.c \
+				ray.c \
+				scene.c \
+				utils.c \
+				objects.c \
 
 SRC_DIR		=	./sources/
 INC_DIR		=	./includes
