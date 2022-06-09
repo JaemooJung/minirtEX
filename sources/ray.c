@@ -30,14 +30,50 @@ t_ray		ray_primary(t_camera *cam, double u, double v)
 	return (ray);
 }
 
-//광선이 최종적으로 얻게된 픽셀의 색상 값을 리턴.
-t_color3	ray_color(t_ray *r)
+t_hit_record record_init(void)
 {
-	double	t;
-	
-	t = 0.5 * (r->dir.y + 1.0);
-	// (1-t) * 흰색 + t * 하늘색
-	return (vplus(vmult(color3(1, 1, 1), 1.0 - t), vmult(color3(0.5, 0.7, 1.0), t)));
+	t_hit_record	record;
+
+	record.tmin = EPSILON;
+	record.tmax = INFINITY;
+	return (record);
+}
+
+//광선이 최종적으로 얻게된 픽셀의 색상 값을 리턴.
+t_color3	ray_color(t_scene *scene)
+{
+	double			t;
+	t_vec3			n;
+
+	//광선이 구에 적중하면(광선과 구가 교점이 있고, 교점이 카메라 앞쪽이라면!)
+	scene->rec = record_init();
+	if (hit(scene->world, &scene->ray, &scene->rec))
+		return (phong_lighting(scene)); //phong_lighting 함수는 8.4에서 설명한다. 이제 법선 벡터를 매핑해서 얻은 색이 아닌, 앞으로 작성할 phong_lighting 함수의 결과값을 반환한다! 
+	else
+	{
+		//ray의 방향벡터의 y 값을 기준으로 그라데이션을 주기 위한 계수.
+		t = 0.5 * (scene->ray.dir.y + 1.0);
+		// (1-t) * 흰색 + t * 하늘색
+		return (vplus(vmult(color3(1, 1, 1), 1.0 - t), vmult(color3(0.5, 0.7, 1.0), t)));
+	}
+}
+
+t_color3		phong_lighting(t_scene *scene)
+{
+	t_color3	light_color;
+	t_object	*lights;
+
+	light_color = color3(0, 0, 0); //광원이 하나도 없다면, 빛의 양은 (0, 0, 0)일 것이다.
+	lights = scene->light;
+	// while (lights) //여러 광원에서 나오는 모든 빛에 대해 각각 diffuse, specular 값을 모두 구해줘야 한다
+	// {
+	// 	if(lights->type == LIGHT_POINT)
+	// 		light_color = vplus(light_color, point_light_get(scene, lights->element));
+	// 	lights = lights->next;
+	// }
+	light_color = vplus(light_color, scene->ambient);
+	return (vmin(vmult_(light_color, scene->rec.albedo), color3(1, 1, 1)));
+	//모든 광원에 의한 빛의 양을 구한 후, 오브젝트의 반사율과 곱해준다. 그 값이 (1, 1, 1)을 넘으면 (1, 1, 1)을 반환한다.
 }
 
 t_color3	ray_color_obj(t_ray *ray ,t_object *object)
@@ -72,6 +108,7 @@ void	set_face_normal(t_ray *r, t_hit_record *rec)
 t_bool	hit_sphere(t_object *object, t_ray *ray, t_hit_record *rec)
 {
 	t_vec3	oc; //방향벡터로 나타낸 구의 중심.
+	t_sphere	*sp;
 	//a, b, c는 각각 t에 관한 2차 방정식의 계수
 	double	a; 
 	double	half_b;
@@ -80,7 +117,6 @@ t_bool	hit_sphere(t_object *object, t_ray *ray, t_hit_record *rec)
 	double	sqrtd;
 	double	root;
 
-	t_sphere	*sp;
 	sp = (t_sphere *)object->element;
 	oc = vminus(ray->orig, sp->center);
 	a = vlength2(ray->dir);
@@ -101,6 +137,7 @@ t_bool	hit_sphere(t_object *object, t_ray *ray, t_hit_record *rec)
 	rec->p = ray_at(ray, root);
 	rec->normal = vdivide(vminus(rec->p, sp->center), sp->radius);
 	set_face_normal(ray, rec);
+	rec->albedo = object->albedo;
 	return (TRUE);
 }
 
@@ -153,3 +190,4 @@ t_bool	hit_obj(t_object *obj, t_ray *ray, t_hit_record *rec)
 		did_hit = hit_sphere(obj, ray, rec);
 	return (did_hit);
 }
+

@@ -1,7 +1,7 @@
 #include "structures.h"
 #include <stdlib.h>
 
-t_object	*object(t_object_type type, void *element)
+t_object	*object(t_object_type type, void *element, t_color3 albedo)
 {
 	t_object *new;
 
@@ -11,6 +11,7 @@ t_object	*object(t_object_type type, void *element)
 	new->type = type;
 	new->element = element;
 	new->next = NULL;
+	new->albedo = albedo;
 	return (new);
 }
 
@@ -25,6 +26,18 @@ t_sphere	*sphere(t_point3 center, double radius)
 	sphere->radius = radius;
 	sphere->radius2 = radius * radius;
 	return (sphere);
+}
+
+t_light		*light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio)
+{
+	t_light	*light;
+
+	if(!(light = (t_light *)malloc(sizeof(t_light))))
+		return (NULL);
+	light->origin = light_origin;
+	light->light_color = light_color;
+	light->bright_ratio = bright_ratio;
+	return (light);
 }
 
 void	obj_add(t_object **objects, t_object *new)
