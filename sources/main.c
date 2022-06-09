@@ -127,9 +127,9 @@ t_scene	*scene_init(void)
 	scene->camera = camera(&scene->canvas, point3(0, 0, 0));
 	world = object(SP, sphere(point3(-2, 0, -5), 2), color3(0.5, 0, 0)); // world 에 구1 추가
 	obj_add(&world, object(SP, sphere(point3(2, 0, -5), 2), color3(0, 0.5, 0))); // world 에 구2 추가
-	obj_add(&world, object(SP, sphere(point3(0, -1000, 0), 900), color3(1, 1, 1))); // world 에 구3 추가
+	obj_add(&world, object(SP, sphere(point3(0, -1000, 0), 990), color3(1, 1, 1))); // world 에 구3 추가
 	scene->world = world;
-	lights = object(LIGHT_POINT, light_point(point3(0, 5, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0)); // 더미 albedo
+	lights = lights = object(LIGHT_POINT, light_point(point3(0, 20, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0));
 	scene->light = lights;
 	ka = 0.1; // 8.4 에서 설명
 	scene->ambient = vmult(color3(1,1,1), ka); // 8.4 에서 설명

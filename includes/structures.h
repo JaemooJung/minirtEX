@@ -13,6 +13,7 @@ typedef int	t_bool;
 
 # define FALSE 0
 # define TRUE 1
+# define LUMEN 3
 
 typedef struct s_info
 {
