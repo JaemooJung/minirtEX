@@ -5,9 +5,15 @@ CFLAGS		=
 RM			=	rm -f
 
 FILES 		=	main.c \
+				error.c \
 				ray.c \
 				scene.c \
+				draw.c \
 				utils.c \
+				utils_vec_operations.c \
+				utils_vec_operations_2.c \
+				utils_vec_operations_3.c \
+				mlx_utils.c \
 				objects.c \
 
 SRC_DIR		=	./sources/

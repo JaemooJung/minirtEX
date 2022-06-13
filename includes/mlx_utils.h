@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   mlx_utils.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 22:19:08 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/13 22:21:57 by jaemung          ###   ########.fr       */
+/*   Created: 2022/06/10 14:01:10 by jaemjung          #+#    #+#             */
+/*   Updated: 2022/06/13 22:22:37 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef MLX_UTILS_H
+# define MLX_UTILS_H
 
-# include "structures.h"
-# include "utils.h"
-# include "mlx_utils.h"
-# include "scene.h"
-# include "trace.h"
-# include "mlx.h"
+# include "minirt.h"
+# include "error.h"
 
-# define X_EVENT_KEY_EXIT 17
-# define X_EVENT_KEY_ESC 53
-
-# define WIN_W 800
-# define WIN_H 600
+void	init_mlx(t_mlx_info *info);
+int		terminate(t_mlx_info *info);
+int		key_hook(int keycode, t_mlx_info *info);
 
 #endif

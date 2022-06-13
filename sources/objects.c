@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objects.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/13 22:23:22 by jaemung           #+#    #+#             */
+/*   Updated: 2022/06/13 22:24:05 by jaemung          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "structures.h"
 #include <stdlib.h>
 
 t_object	*object(t_object_type type, void *element, t_color3 albedo)
 {
-	t_object *new;
+	t_object	*new;
 
 	new = (t_object *)malloc(sizeof(t_object));
 	if (!new)
@@ -17,7 +29,7 @@ t_object	*object(t_object_type type, void *element, t_color3 albedo)
 
 t_sphere	*sphere(t_point3 center, double radius)
 {
-	t_sphere *sphere;
+	t_sphere	*sphere;
 
 	sphere = (t_sphere *)malloc(sizeof(t_sphere));
 	if (!sphere)
@@ -42,7 +54,7 @@ t_light		*light_point(t_point3 light_origin, t_color3 light_color, double bright
 
 void	obj_add(t_object **objects, t_object *new)
 {
-	t_object *curr;
+	t_object	*curr;
 
 	if (*objects == NULL)
 	{

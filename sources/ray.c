@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/13 22:23:18 by jaemung           #+#    #+#             */
+/*   Updated: 2022/06/13 22:47:02 by jaemung          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "trace.h"
 
 //ray 생성자(정규화 된 ray)
@@ -194,7 +206,7 @@ t_bool	hit_sphere(t_object *object, t_ray *ray, t_hit_record *rec)
 	return (TRUE);
 }
 
-t_color3	ray_color_sph(t_ray *ray, t_sphere *sphere)
+t_color3	ray_color_sph(t_ray *ray, t_object *sphere)
 {
 	double t;
 	t_vec3 n;

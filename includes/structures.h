@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structures.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/13 22:13:40 by jaemung           #+#    #+#             */
+/*   Updated: 2022/06/13 22:22:07 by jaemung          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
@@ -5,7 +17,7 @@
 typedef int t_object_type;
 
 # define SP 0
-# define LIGHT_POINT 1
+# define LIGHT_POINT 10
 
 # define EPSILON 1e-6 // 0.000001
 
@@ -13,16 +25,19 @@ typedef int	t_bool;
 
 # define FALSE 0
 # define TRUE 1
+
 # define LUMEN 3
 
-typedef struct s_info
+typedef struct s_mlx_info
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	int		win_h;
-	int		win_w;
-}	t_info;
-
+	void	*img_ptr;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_mlx_info;
 
 typedef struct s_vec3 t_vec3;
 typedef struct s_vec3 t_point3;
