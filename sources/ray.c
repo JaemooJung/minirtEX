@@ -26,7 +26,9 @@ t_ray		ray_primary(t_camera *cam, double u, double v)
 
 	ray.orig = cam->orig;
 	// left_bottom + u * horizontal + v * vertical - origin 의 단위 벡터.
-	ray.dir = vunit(vminus(vplus(vplus(cam->left_bottom, vmult(cam->horizontal, u)), vmult(cam->vertical, v)), cam->orig));
+	ray.dir = vunit(
+		vminus(vplus(vplus(cam->left_bottom, vmult(cam->horizontal, u)), vmult(cam->vertical, v)), 
+		cam->orig));
 	return (ray);
 }
 
@@ -90,7 +92,7 @@ t_color3		point_light_get(t_scene *scene, t_light *light)
 	double		ks;
 	double		brightness;
 
-	light_dir = vminus(light->origin, scene->rec.p);
+	light_dir = vminus(light->origin, scene->rec.p); /////////
 	light_len = vlength(light_dir);
 	light_ray = ray(vplus(scene->rec.p, vmult(scene->rec.normal, EPSILON)), light_dir);
 	if (in_shadow(scene->world, light_ray, light_len))
@@ -102,7 +104,7 @@ t_color3		point_light_get(t_scene *scene, t_light *light)
 	view_dir = vunit(vmult(scene->ray.dir, -1));
 	reflect_dir = reflect(vmult(light_dir, -1), scene->rec.normal);
 	ksn = 64; // shininess value
-	ks = 0.9; // specular strength
+	ks = 0.5; // specular strength
 	spec = pow(fmax(vdot(view_dir, reflect_dir), 0.0), ksn);
 	specular = vmult(vmult(light->light_color, ks), spec);
 	brightness = light->bright_ratio * LUMEN; // 기준 광속/광량을 정의한 매크로
