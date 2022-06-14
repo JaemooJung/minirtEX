@@ -6,7 +6,7 @@
 /*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:13:40 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/14 12:37:17 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/14 17:28:57 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 typedef int	t_object_type;
 
 # define SP 0
+# define CY 1
 # define LIGHT_POINT 10
 
 # define EPSILON 1e-6 // 0.000001
@@ -73,13 +74,6 @@ typedef struct s_canvas
 	double	aspect_ratio; //종횡비
 }	t_canvas;
 
-typedef struct s_sphere
-{
-	t_point3	center;
-	double		radius;
-	double		radius2;
-}	t_sphere;
-
 typedef struct s_hit_record
 {
 	t_point3	p;
@@ -98,6 +92,22 @@ typedef struct s_object
 	void			*next;
 	t_color3		albedo;
 }	t_object;
+
+typedef struct s_sphere
+{
+	t_point3	center;
+	double		radius;
+	double		radius2;
+}	t_sphere;
+
+typedef struct s_cylinder
+{
+	t_point3	center;
+	t_vec3		dir;
+	double		radius;
+	double		radius2;
+	double		height;
+}	t_cylinder;
 
 typedef struct s_light
 {

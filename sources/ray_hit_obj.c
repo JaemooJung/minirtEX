@@ -6,7 +6,7 @@
 /*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:39:21 by jaemjung          #+#    #+#             */
-/*   Updated: 2022/06/14 12:42:21 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/14 18:46:29 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ t_bool	hit_obj(t_object *obj, t_ray *ray, t_hit_record *rec)
 	did_hit = FALSE;
 	if (obj->type == SP)
 		did_hit = hit_sphere(obj, ray, rec);
+	else if (obj->type == CY)
+		did_hit = hit_cylinder(obj, ray, rec);
 	return (did_hit);
 }
 
@@ -75,6 +77,40 @@ t_bool	hit_sphere(t_object *object, t_ray *ray, t_hit_record *rec)
 	rec->normal = vdivide(vminus(rec->p, sp->center), sp->radius);
 	set_face_normal(ray, rec);
 	rec->albedo = object->albedo;
+	return (TRUE);
+}
+
+t_bool	hit_cylinder(t_object *obj, t_ray *ray, t_hit_record *rec)
+{
+	t_cylinder *cy;
+	t_vec3	oc;
+	double	a;
+	double	b;
+	double	c;
+	double	discriminant;
+	
+	cy = (t_cylinder *)obj->element;
+	oc = vminus(ray->orig, cy->center);
+	a = pow(vdot(ray->dir, cy->dir), 2) - 1;
+	b = vdot(ray->dir, cy->dir) * vdot(oc, cy->dir) - vdot(oc, ray->dir);
+	c = pow(cy->radius, 2) - vdot(oc, oc) + pow(vdot(oc, cy->dir), 2);
+	discriminant = pow(b, 2) - (a * c);
+	if (discriminant < 0)
+		return (FALSE);
+	double t = (sqrt(discriminant) - b) / a;
+	if (t < rec->tmin || t > rec->tmax)
+	{
+		t = - (b + sqrt(discriminant)) / a;
+		if (t < rec->tmin || t > rec->tmax)
+			return (FALSE);
+	}
+	rec->t = t;
+	rec->p = ray_at(ray, t);
+	rec->normal = vunit(vminus(oc, vmult(cy->dir, vdot(oc, cy->dir))));
+	set_face_normal(ray, rec);
+	rec->albedo = obj->albedo;
+	if (vdot(oc, cy->dir) > cy->height || vdot(oc, cy->dir) < 0)
+		return (FALSE);
 	return (TRUE);
 }
 

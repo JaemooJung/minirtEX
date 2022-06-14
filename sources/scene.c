@@ -6,7 +6,7 @@
 /*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:29 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/14 14:32:31 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/14 18:50:33 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,15 @@ t_scene	*scene_init(void)
 	double		ka; // 8.4 에서 설명
 
 	// malloc 할당 실패 시, 실습에서는 return NULL로 해두었지만, 적절한 에러 처리가 필요하다.
-	if(!(scene = (t_scene *)malloc(sizeof(t_scene))))
-		return (NULL);
+	scene = (t_scene *)malloc(sizeof(t_scene));
+	if (scene == NULL)
+		error("scene malloc failed");
 	scene->canvas = canvas(WIN_W, WIN_H);
-	scene->camera = camera(&scene->canvas, point3(0, 3, 3));
-	world = object(SP, sphere(point3(-1.5, 0, -3), 2), color3(0.5, 0, 0)); // world 에 구1 추가
-	obj_add(&world, object(SP, sphere(point3(2, 0, -5), 2), color3(0, 0.5, 0))); // world 에 구2 추가
+	scene->camera = camera(&scene->canvas, point3(0, 0, 0));
+	world = object(SP, sphere(point3(-2, 0, -5), 2), color3(0.5, 0, 0)); // world 에 구1 추가
+	//obj_add(&world, object(SP, sphere(point3(2, 0, -5), 2), color3(0, 0.5, 0))); // world 에 구2 추가
 	//obj_add(&world, object(SP, sphere(point3(0, -1000, 0), 995), color3(1, 1, 1))); // world 에 구3 추가
+	obj_add(&world, object(CY, cylinder(point3(-2, 0, -4), 1, vec3(0.5, 0.5, 0), 3), color3(0, 0.7, 0)));
 	scene->world = world;
 	lights = object(LIGHT_POINT, light_point(point3(-100, 0, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0));
 	scene->light = lights;

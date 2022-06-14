@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:22 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/13 22:24:05 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/14 17:29:58 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structures.h"
+#include "error.h"
+#include "utils.h"
 #include <stdlib.h>
 
 t_object	*object(t_object_type type, void *element, t_color3 albedo)
@@ -38,6 +40,20 @@ t_sphere	*sphere(t_point3 center, double radius)
 	sphere->radius = radius;
 	sphere->radius2 = radius * radius;
 	return (sphere);
+}
+
+t_cylinder	*cylinder(t_point3 center, double radius, t_vec3 dir, double height)
+{
+	t_cylinder	*cylinder;
+
+	cylinder = (t_cylinder *)malloc(sizeof(cylinder));
+	if (cylinder == NULL)
+		error("cylinder malloc failed");
+	cylinder->center = center;
+	cylinder->dir = vunit(dir);
+	cylinder->radius = radius;
+	cylinder->height = height;
+	return (cylinder);
 }
 
 t_light		*light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio)
