@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:13:46 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/13 22:47:29 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/14 14:07:03 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ t_point3	ray_at(t_ray *ray, double t);
 
 t_ray		ray_primary(t_camera *cam, double u, double v);
 t_color3	ray_color(t_scene *scene);
-t_color3	ray_color_sph(t_ray *ray, t_object *sphere);
-t_color3	ray_color_obj(t_ray *ray ,t_object *object);
 
 t_bool		hit(t_object *obj, t_ray *ray, t_hit_record *rec);
 t_bool		hit_obj(t_object *obj, t_ray *ray, t_hit_record *rec);
 t_bool		hit_sphere(t_object *obj, t_ray *ray, t_hit_record *rec);
+void		set_face_normal(t_ray *r, t_hit_record *rec);
 
 t_color3	phong_lighting(t_scene *scene);
 t_color3	point_light_get(t_scene *scene, t_light *light);

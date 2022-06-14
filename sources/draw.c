@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:27:18 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/13 22:47:56 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/14 12:30:47 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,11 @@ void	draw_scene(t_mlx_info *info)
 	t_scene		*scene;
 	
 	scene = scene_init();
-	// 랜더링
-	j = 0;
-	while (j < scene->canvas.height)
+	j = -1;
+	while (++j < scene->canvas.height)
 	{
-		i = 0;
-		while (i < scene->canvas.width)
+		i = -1;
+		while (++i < scene->canvas.width)
 		{
 			u = (double)i / (scene->canvas.width - 1);
 			v = (double)j / (scene->canvas.height - 1);
@@ -43,8 +42,6 @@ void	draw_scene(t_mlx_info *info)
 			scene->ray = ray_primary(&scene->camera, u, v);
 			pixel_color = ray_color(scene); 
 			draw_pixel(info, i, scene->canvas.height - j - 1, encode_color(pixel_color));
-			++i;
 		}
-		++j;
 	}
 }

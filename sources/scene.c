@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:29 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/13 22:29:43 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/14 14:32:31 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ t_scene	*scene_init(void)
 	if(!(scene = (t_scene *)malloc(sizeof(t_scene))))
 		return (NULL);
 	scene->canvas = canvas(WIN_W, WIN_H);
-	scene->camera = camera(&scene->canvas, point3(0, 0, 0));
-	world = object(SP, sphere(point3(-2, 0, -5), 2), color3(0.5, 0, 0)); // world 에 구1 추가
+	scene->camera = camera(&scene->canvas, point3(0, 3, 3));
+	world = object(SP, sphere(point3(-1.5, 0, -3), 2), color3(0.5, 0, 0)); // world 에 구1 추가
 	obj_add(&world, object(SP, sphere(point3(2, 0, -5), 2), color3(0, 0.5, 0))); // world 에 구2 추가
-	obj_add(&world, object(SP, sphere(point3(0, -1000, 0), 995), color3(1, 1, 1))); // world 에 구3 추가
+	//obj_add(&world, object(SP, sphere(point3(0, -1000, 0), 995), color3(1, 1, 1))); // world 에 구3 추가
 	scene->world = world;
-	lights = object(LIGHT_POINT, light_point(point3(0, 20, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0));
+	lights = object(LIGHT_POINT, light_point(point3(-100, 0, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0));
 	scene->light = lights;
-	ka = 0; // 8.4 에서 설명
+	ka = 0.3; // 8.4 에서 설명
 	scene->ambient = vmult(color3(1,1,1), ka); // 8.4 에서 설명
 	return (scene);
 }
