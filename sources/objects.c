@@ -6,7 +6,7 @@
 /*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:22 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/16 16:57:24 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:16:20 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,17 @@ t_cylinder	*cylinder(t_point3 center, double radius, t_vec3 dir, double height)
 	cylinder->radius = radius;
 	cylinder->height = height;
 	return (cylinder);
+}
+
+t_plane	*plane(t_point3 center, t_vec3 dir, double radius)
+{
+	t_plane	*plane;
+
+	plane = (t_plane *)malloc(sizeof(t_plane));
+	plane->center = center;
+	plane->dir = vunit(dir);
+	plane->radius = radius;
+	return (plane);
 }
 
 t_light		*light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio)

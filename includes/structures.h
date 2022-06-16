@@ -6,7 +6,7 @@
 /*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:13:40 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/14 17:28:57 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:28:07 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef int	t_object_type;
 
 # define SP 0
 # define CY 1
+# define PL 2
 # define LIGHT_POINT 10
 
 # define EPSILON 1e-6 // 0.000001
@@ -108,6 +109,13 @@ typedef struct s_cylinder
 	double		radius2;
 	double		height;
 }	t_cylinder;
+
+typedef struct s_plane
+{
+	t_point3	center;
+	t_vec3		dir;
+	double		radius;
+}	t_plane;
 
 typedef struct s_light
 {

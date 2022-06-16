@@ -6,7 +6,7 @@
 /*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:18 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/14 14:30:14 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:57:43 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ t_color3	ray_color(t_scene *scene)
 		// (1-t) * 흰색 + t * 하늘색
 		return (vplus(vmult(color3(1, 1, 1), 1.0 - t), vmult(color3(0.5, 0.7, 1.0), t)));
 		*/
-		return (color3(0, 0, 0));
+		return (color3(0.3, 0.3, 0));
 	}
 }

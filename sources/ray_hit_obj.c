@@ -6,7 +6,7 @@
 /*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:39:21 by jaemjung          #+#    #+#             */
-/*   Updated: 2022/06/16 17:11:32 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:45:55 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_bool	hit_obj(t_object *obj, t_ray *ray, t_hit_record *rec)
 		did_hit = hit_sphere(obj, ray, rec);
 	else if (obj->type == CY)
 		did_hit = hit_cylinder(obj, ray, rec);
+	else if (obj->type == PL)
+		did_hit = hit_plane(obj, ray, rec);
 	return (did_hit);
 }
 
@@ -112,6 +114,28 @@ t_bool	hit_cylinder(t_object *obj, t_ray *ray, t_hit_record *rec)
 	rec->albedo = obj->albedo;
 	if (vdot(oc, cy->dir) > cy->height || vdot(oc, cy->dir) < 0)
 		return (FALSE);
+	return (TRUE);
+}
+
+t_bool	hit_plane(t_object *obj, t_ray *ray, t_hit_record *rec)
+{
+	t_plane	*pl;
+	double	num;
+	double	denom;
+	double	root;
+	
+	pl = (t_plane *)obj->element;
+	denom = vdot(ray->dir, pl->dir);
+	if (denom <= EPSILON)
+		return (FALSE);
+	num = vdot(vminus(pl->center, ray->orig), pl->dir);
+	root = num / denom;
+	if (root < rec->tmin || rec->tmax < root)
+		return (FALSE);
+	rec->t = root;
+	rec->p = ray_at(ray, root);
+	//rec->normal = pl->dir;
+	rec->albedo = obj->albedo;
 	return (TRUE);
 }
 
