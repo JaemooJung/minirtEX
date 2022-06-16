@@ -6,7 +6,7 @@
 /*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:39:21 by jaemjung          #+#    #+#             */
-/*   Updated: 2022/06/14 18:46:29 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:11:32 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ t_bool	hit_cylinder(t_object *obj, t_ray *ray, t_hit_record *rec)
 	rec->p = ray_at(ray, t);
 	rec->normal = vunit(vminus(oc, vmult(cy->dir, vdot(oc, cy->dir))));
 	set_face_normal(ray, rec);
+	oc = vminus(rec->p, cy->center);
 	rec->albedo = obj->albedo;
 	if (vdot(oc, cy->dir) > cy->height || vdot(oc, cy->dir) < 0)
 		return (FALSE);

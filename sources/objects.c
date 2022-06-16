@@ -6,7 +6,7 @@
 /*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:22 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/14 17:29:58 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/16 16:57:24 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_cylinder	*cylinder(t_point3 center, double radius, t_vec3 dir, double height)
 {
 	t_cylinder	*cylinder;
 
-	cylinder = (t_cylinder *)malloc(sizeof(cylinder));
+	cylinder = (t_cylinder *)malloc(sizeof(t_cylinder));
 	if (cylinder == NULL)
 		error("cylinder malloc failed");
 	cylinder->center = center;
