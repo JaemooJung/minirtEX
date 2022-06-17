@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:29 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/16 18:58:41 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/17 20:01:39 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ t_scene	*scene_init(void)
 	scene->canvas = canvas(WIN_W, WIN_H);
 	scene->camera = camera(&scene->canvas, point3(0, 0, 7));
 	world = object(SP, sphere(point3(-2, 0, -5), 2), color3(0, 0.5, 0.5)); // world 에 구1 추가
-	obj_add(&world, object(CY, cylinder(point3(0, 0, -10), 2.2, vec3(1, 1, 1), 21.42), color3(0, 0.7, 0)));
+	obj_add(&world, object(CY, cylinder(point3(0, 0, -10), 2.2, vec3(1, 1, EPSILON), 8), color3(0.3, 0, 0)));
+	obj_add(&world, object(PL, plane(point3(100, -100, -100), vec3(EPSILON, EPSILON, EPSILON), 10), color3(0, 0.7, 0)));
 	scene->world = world;
-	lights = object(LIGHT_POINT, light_point(point3(-5, 20, 30), color3(1, 1, 1), 0.7), color3(0, 0, 0));
+	lights = object(LIGHT_POINT, light_point(point3(0, 0, 0), color3(1, 1, 1), 0.7), color3(0, 0, 0));
 	scene->light = lights;
-	ka = 0.0; // 8.4 에서 설명
+	ka = 0.1; // 8.4 에서 설명
 	scene->ambient = vmult(color3(1,1,1), ka); // 8.4 에서 설명
 	return (scene);
 }

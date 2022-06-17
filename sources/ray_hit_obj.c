@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_hit_obj.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:39:21 by jaemjung          #+#    #+#             */
-/*   Updated: 2022/06/16 18:45:55 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/17 20:04:22 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_bool	hit_obj(t_object *obj, t_ray *ray, t_hit_record *rec)
 	t_bool	did_hit;
 
 	did_hit = FALSE;
-	if (obj->type == SP)
+if (obj->type == SP)
 		did_hit = hit_sphere(obj, ray, rec);
 	else if (obj->type == CY)
 		did_hit = hit_cylinder(obj, ray, rec);
@@ -120,28 +120,32 @@ t_bool	hit_cylinder(t_object *obj, t_ray *ray, t_hit_record *rec)
 t_bool	hit_plane(t_object *obj, t_ray *ray, t_hit_record *rec)
 {
 	t_plane	*pl;
-	double	num;
-	double	denom;
-	double	root;
-	
-	pl = (t_plane *)obj->element;
-	denom = vdot(ray->dir, pl->dir);
-	if (denom <= EPSILON)
+	float	numrator;
+	float	denominator;
+	float	root;
+
+	pl = obj->element;
+	denominator = vdot(ray->dir, pl->dir);
+	if (fabs(denominator) < EPSILON)
 		return (FALSE);
-	num = vdot(vminus(pl->center, ray->orig), pl->dir);
-	root = num / denom;
+	numrator = vdot(vminus(pl->center, ray->orig), pl->dir);
+	root = numrator / denominator;
 	if (root < rec->tmin || rec->tmax < root)
 		return (FALSE);
 	rec->t = root;
 	rec->p = ray_at(ray, root);
-	//rec->normal = pl->dir;
+	if (pl->radius != INFINITY)
+		if (vlength(vminus(pl->center, rec->p)) > pl->radius)
+			return (FALSE);
+	rec->normal = pl->dir;
+	set_face_normal(ray, rec);
 	rec->albedo = obj->albedo;
 	return (TRUE);
 }
 
 void	set_face_normal(t_ray *r, t_hit_record *rec)
 {
-	rec->front_face = vdot(r->dir, rec->normal) < 0;
+	rec->front_face = vdot(r->dir, rec->normal) < EPSILON;
 	if (rec->front_face)
 		rec->normal = rec->normal;
 	else

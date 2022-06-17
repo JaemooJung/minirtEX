@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:13:40 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/16 18:28:07 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/17 18:37:09 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef int	t_object_type;
 # define LIGHT_POINT 10
 
 # define EPSILON 1e-6 // 0.000001
+# define INF INT32_MAX
 
 typedef int	t_bool;
 

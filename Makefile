@@ -1,7 +1,7 @@
 NAME 		=	miniRT
 
 CC 			=	gcc
-CFLAGS		=	-Werror -Wall -Wextra -g
+CFLAGS		=	#-Werror -Wall -Wextra -g
 RM			=	rm -f
 
 FILES 		=	main.c \
