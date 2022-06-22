@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:29 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/18 21:39:20 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/22 19:22:01 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,16 @@ t_scene	*scene_init(void)
 	scene->camera = camera(&scene->canvas, point3(0, 0, 7));
 	world = NULL;
 	obj_add(&world, object(SP, sphere(point3(-2, 0, -5), 2), color3(0, 0.5, 0.5))); // world 에 구1 추가
-	t_object *cy = object(CY, cylinder(point3(4, -1, -5), 2.2, vec3(0.1, 1, 0), 3), color3(0.7, 0, 0));
+	t_object *cy = object(CY, cylinder(point3(4, -2, -5), 1, vec3(EPSILON, 1, EPSILON), 4), color3(0.7, 0, 0));
 	t_cylinder *c = cy->element;
 	obj_add(&world, cy);
 	obj_add(&world, object(PL, plane(c->center, c->dir, c->radius), cy->albedo));
 	obj_add(&world, object(PL, plane(vplus(c->center, vmult(c->dir, c->height)), c->dir, c->radius), cy->albedo));
 	obj_add(&world, object(PL, plane(point3(0, -3, 0), vec3(EPSILON, 1, EPSILON), INF), color3(0, 0.7, 0)));
 	scene->world = world;
-	lights = object(LIGHT_POINT, light_point(point3(0, 5, -3), color3(1, 1, 1), 0.5), color3(0, 0, 0));
+	lights = object(LIGHT_POINT, light_point(point3(4, 0, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0));
 	scene->light = lights;
-	ka = 0.0; // 8.4 에서 설명
+	ka = 0.2; // 8.4 에서 설명
 	scene->ambient = vmult(color3(1,1,1), ka); // 8.4 에서 설명
 	return (scene);
 }
