@@ -6,7 +6,7 @@
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:40:39 by jaemjung          #+#    #+#             */
-/*   Updated: 2022/06/17 19:53:05 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/18 02:36:41 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_bool			in_shadow(t_object *objs, t_ray light_ray, double light_len)
 	return (FALSE);
 }
 
+// 원기둥에선 Diffuse와 spec이, 평면에선 spec이 정상적으로 작동하지 않음...
 t_color3		point_light_get(t_scene *scene, t_light *light)
 {
 	t_color3	diffuse;
@@ -46,17 +47,17 @@ t_color3		point_light_get(t_scene *scene, t_light *light)
 
 	light_dir = vminus(light->origin, scene->rec.p);
 	light_len = vlength(light_dir);
-	light_ray = ray(vplus(scene->rec.p, vmult(scene->rec.normal, 1e-4)), light_dir);
+	light_ray = ray(vplus(scene->rec.p, vmult(scene->rec.normal, 1e-3)), light_dir);
 	if (in_shadow(scene->world, light_ray, light_len))
-		return (color3(0,0,0));
+		return (color3(0.1,0.1,0.1));
 	light_dir = vunit(light_dir);
 	// cosΘ는 Θ 값이 90도 일 때 0이고 Θ가 둔각이 되면 음수가 되므로 0.0보다 작은 경우는 0.0으로 대체한다.
 	kd = fmax(vdot(scene->rec.normal, light_dir), 0.0);// (교점에서 출발하여 광원을 향하는 벡터)와 (교점에서의 법선벡터)의 내적값.
 	diffuse = vmult(light->light_color, kd);
 	view_dir = vunit(vmult(scene->ray.dir, -1));
 	reflect_dir = reflect(vmult(light_dir, -1), scene->rec.normal);
-	ksn = 64; // shininess value
-	ks = 0.3; // specular strength
+	ksn = 32; // shininess value
+	ks = 0.6; // specular strength
 	spec = pow(fmax(vdot(view_dir, reflect_dir), 0.0), ksn);
 	specular = vmult(vmult(light->light_color, ks), spec);
 	brightness = light->bright_ratio * LUMEN; // 기준 광속/광량을 정의한 매크로

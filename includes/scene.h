@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:13:43 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/16 18:29:20 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/18 00:25:52 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_camera	camera(t_canvas *canvas, t_point3 origin);
 
 t_sphere	*sphere(t_point3 center, double radius);
 t_cylinder	*cylinder(t_point3 center, double radius, t_vec3 dir, double height);
+void		attach_cy_cap(t_object **objs, t_object *cy_);
 t_plane		*plane(t_point3 center, t_vec3 dir, double radius);
 t_object	*object(t_object_type type, void *element, t_color3 albedo);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:22 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/16 18:16:20 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/18 01:31:28 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,27 @@ t_cylinder	*cylinder(t_point3 center, double radius, t_vec3 dir, double height)
 	cylinder->radius = radius;
 	cylinder->height = height;
 	return (cylinder);
+}
+
+void	attach_cy_cap(t_object **objs, t_object *cy_)
+{
+	t_cylinder	*cy;
+	t_plane	*top;
+	t_plane	*bottom;
+
+	cy = (t_cylinder *)cy_->element;
+	top = (t_plane *)malloc(sizeof(t_plane));
+	bottom = (t_plane *)malloc(sizeof(t_plane));
+	if (top == NULL || bottom == NULL)
+		error("attach_cy_cap malloc failed");
+	bottom->center = cy->center;
+	bottom->dir = cy->dir;
+	bottom->radius = cy->radius;
+	obj_add(objs, object(PL, bottom, cy_->albedo));
+	top->dir = cy->dir;
+	top->radius = cy->radius;
+	top->center = vplus(cy->center, vmult(cy->dir, cy->height));
+	obj_add(objs, object(PL, top, cy_->albedo));
 }
 
 t_plane	*plane(t_point3 center, t_vec3 dir, double radius)
