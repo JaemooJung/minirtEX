@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:29 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/22 19:22:01 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/25 16:22:00 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_scene	*scene_init(void)
 {
 	t_scene		*scene;
 	t_object	*world;
-	t_object	*lights;
+	t_object	*light;
 	double		ka;
 	
 	scene = (t_scene *)malloc(sizeof(t_scene));
@@ -63,8 +63,8 @@ t_scene	*scene_init(void)
 	obj_add(&world, object(PL, plane(vplus(c->center, vmult(c->dir, c->height)), c->dir, c->radius), cy->albedo));
 	obj_add(&world, object(PL, plane(point3(0, -3, 0), vec3(EPSILON, 1, EPSILON), INF), color3(0, 0.7, 0)));
 	scene->world = world;
-	lights = object(LIGHT_POINT, light_point(point3(4, 0, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0));
-	scene->light = lights;
+	light = object(LIGHT_POINT, light_point(point3(4, 0, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0));
+	scene->light = light;
 	ka = 0.2; // 8.4 에서 설명
 	scene->ambient = vmult(color3(1,1,1), ka); // 8.4 에서 설명
 	return (scene);

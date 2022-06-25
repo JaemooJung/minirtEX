@@ -1,13 +1,16 @@
 NAME 		=	miniRT
 
 CC 			=	gcc
-CFLAGS		=	#-Werror -Wall -Wextra -g
+CFLAGS		=	-Werror -Wall -Wextra
 RM			=	rm -f
 
 FILES 		=	main.c \
 				error.c \
 				ray.c \
 				ray_hit_obj.c \
+				ray_hit_sp.c \
+				ray_hit_cy.c \
+				ray_hit_pl.c \
 				phong_lighting.c \
 				scene.c \
 				draw.c \

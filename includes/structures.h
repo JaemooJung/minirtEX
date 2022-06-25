@@ -6,7 +6,7 @@
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:13:40 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/18 01:10:39 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/25 16:18:29 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ struct s_vec3
 typedef struct s_vec3	t_vec3;
 typedef struct s_vec3	t_point3;
 typedef struct s_vec3	t_color3;
+
+typedef struct s_disc
+{
+	double	a;
+	double	half_b;
+	double	c;
+	double	discriminant;
+}	t_disc;
 
 typedef struct s_ray
 {
@@ -131,7 +139,7 @@ typedef struct s_scene
 	t_camera		camera;
 	t_object		*world;
 	t_object		*light;
-	t_color3		ambient; // 8.4에서 설명할 요소
+	t_color3		ambient;
 	t_ray			ray;
 	t_hit_record	rec;
 }	t_scene;

@@ -6,7 +6,7 @@
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:40:39 by jaemjung          #+#    #+#             */
-/*   Updated: 2022/06/18 02:36:41 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/25 16:26:29 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ t_color3		point_light_get(t_scene *scene, t_light *light)
 
 	light_dir = vminus(light->origin, scene->rec.p);
 	light_len = vlength(light_dir);
+	// 그림자 계산 시 자기 자신에 의해 그림자가 지는 것을 방지하기 위해 오차값을 곱해줘야 함.
 	light_ray = ray(vplus(scene->rec.p, vmult(scene->rec.normal, 1e-3)), light_dir);
 	if (in_shadow(scene->world, light_ray, light_len))
-		return (color3(0.1,0.1,0.1));
+		return (color3(0, 0, 0));
 	light_dir = vunit(light_dir);
 	// cosΘ는 Θ 값이 90도 일 때 0이고 Θ가 둔각이 되면 음수가 되므로 0.0보다 작은 경우는 0.0으로 대체한다.
 	kd = fmax(vdot(scene->rec.normal, light_dir), 0.0);// (교점에서 출발하여 광원을 향하는 벡터)와 (교점에서의 법선벡터)의 내적값.
@@ -67,17 +68,13 @@ t_color3		point_light_get(t_scene *scene, t_light *light)
 t_color3		phong_lighting(t_scene *scene)
 {
 	t_color3	light_color;
-	t_object	*lights;
+	t_object	*light;
 
 	light_color = color3(0, 0, 0); //광원이 하나도 없다면, 빛의 양은 (0, 0, 0)일 것이다.
-	lights = scene->light;
-	while (lights) //여러 광원에서 나오는 모든 빛에 대해 각각 diffuse, specular 값을 모두 구해줘야 한다
-	{
-		if(lights->type == LIGHT_POINT)
-			light_color = vplus(light_color, point_light_get(scene, lights->element));
-		lights = lights->next;
-	}
+	light = scene->light;
+	if (light->type == LIGHT_POINT)
+		light_color = vplus(light_color, point_light_get(scene, light->element));
 	light_color = vplus(light_color, scene->ambient);
+	//광원에 의한 빛의 양을 구한 후, 오브젝트의 반사율과 곱해준다. 그 값이 (1, 1, 1)을 넘으면 (1, 1, 1)을 반환한다.
 	return (vmin(vmult_(light_color, scene->rec.albedo), color3(1, 1, 1)));
-	//모든 광원에 의한 빛의 양을 구한 후, 오브젝트의 반사율과 곱해준다. 그 값이 (1, 1, 1)을 넘으면 (1, 1, 1)을 반환한다.
 }
