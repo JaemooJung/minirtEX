@@ -20,6 +20,7 @@ FILES 		=	main.c \
 				utils_vec_operations_3.c \
 				mlx_utils.c \
 				objects.c \
+				objects_utils.c \
 
 SRC_DIR		=	./sources/
 INC_DIR		=	./includes
