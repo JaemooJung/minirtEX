@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:27:18 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/14 12:30:47 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/24 19:22:13 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	draw_scene(t_mlx_info *info)
 		{
 			u = (double)i / (scene->canvas.width - 1);
 			v = (double)j / (scene->canvas.height - 1);
-			//ray from camera origin to pixel
 			scene->ray = ray_primary(&scene->camera, u, v);
 			pixel_color = ray_color(scene); 
 			draw_pixel(info, i, scene->canvas.height - j - 1, encode_color(pixel_color));
