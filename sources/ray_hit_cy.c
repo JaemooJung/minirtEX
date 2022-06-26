@@ -6,7 +6,7 @@
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:12:01 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/25 17:22:21 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/26 13:29:15 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static int	cy_boundary(t_cylinder *cy, t_vec3 at_point)
 
 static t_vec3	get_cylinder_normal(t_cylinder *cy, t_vec3 at_point, double hit_height)
 {
-	t_point3 hit_center;
-	t_vec3 normal;
+	t_point3	hit_center;
+	t_vec3		normal;
 
 	hit_center = vplus(cy->center, vmult(cy->dir, hit_height));
 	normal = vminus(at_point, hit_center);
@@ -48,11 +48,11 @@ static t_disc	calc_cy_disc(t_cylinder *cy, t_ray *ray)
 
 int	hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 {
-	t_cylinder *cy;
-	t_disc	disc;
-	double sqrtd;
-	double root;
-	double hit_height;
+	t_cylinder	*cy;
+	t_disc		disc;
+	double		sqrtd;
+	double		root;
+	double		hit_height;
 
 	cy = cy_obj->element;
 	disc = calc_cy_disc(cy, ray);

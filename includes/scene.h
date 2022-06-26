@@ -6,7 +6,7 @@
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:13:43 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/18 00:25:52 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/26 16:17:44 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "trace.h"
 
 t_canvas	canvas(int width, int height);
-t_camera	camera(t_canvas *canvas, t_point3 origin);
+t_camera	camera(t_canvas *canvas, t_point3 orig);
 
 t_sphere	*sphere(t_point3 center, double radius);
 t_cylinder	*cylinder(t_point3 center, double radius, t_vec3 dir, double height);

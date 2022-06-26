@@ -6,7 +6,7 @@
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:13:40 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/25 16:18:29 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/26 16:18:29 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ typedef int	t_object_type;
 # define PL 2
 # define LIGHT_POINT 10
 
-# define EPSILON 1e-6 // 0.000001
+# define EPSILON 1e-6
+# define PI 3.14159265359
 # define INF INT32_MAX
 
 typedef int	t_bool;
@@ -69,11 +70,12 @@ typedef struct s_ray
 typedef struct s_camera
 {
 	t_point3	orig;  // 카메라 원점(위치)
-	double		viewport_h; // 뷰포트 세로길이
-	double		viewport_w; // 뷰포트 가로길이
+	t_vec3		dir;   // 카메라 방향(방향)
+	double		focal_len; // focal length
+	double		viewport_h;
+	double		viewport_w;
 	t_vec3		horizontal; // 수평길이 벡터
 	t_vec3		vertical; // 수직길이 벡터
-	double		focal_len; // focal length
 	t_point3	left_bottom; // 왼쪽 아래 코너점
 }	t_camera;
 

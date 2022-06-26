@@ -6,19 +6,19 @@
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:40:39 by jaemjung          #+#    #+#             */
-/*   Updated: 2022/06/25 16:26:29 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/26 13:29:36 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "trace.h"
 
-t_vec3			reflect(t_vec3 v, t_vec3 n)
+t_vec3	reflect(t_vec3 v, t_vec3 n)
 {
 	//v - 2 * dot(v, n) * n;
 	return (vminus(v, vmult(n, vdot(v, n) * 2)));
 }
 
-t_bool			in_shadow(t_object *objs, t_ray light_ray, double light_len)
+t_bool	in_shadow(t_object *objs, t_ray light_ray, double light_len)
 {
 	t_hit_record rec;
 
@@ -29,8 +29,7 @@ t_bool			in_shadow(t_object *objs, t_ray light_ray, double light_len)
 	return (FALSE);
 }
 
-// 원기둥에선 Diffuse와 spec이, 평면에선 spec이 정상적으로 작동하지 않음...
-t_color3		point_light_get(t_scene *scene, t_light *light)
+t_color3	point_light_get(t_scene *scene, t_light *light)
 {
 	t_color3	diffuse;
 	t_vec3		light_dir;
@@ -65,7 +64,7 @@ t_color3		point_light_get(t_scene *scene, t_light *light)
 	return (vmult(vplus(vplus(scene->ambient, diffuse), specular), brightness));
 }
 
-t_color3		phong_lighting(t_scene *scene)
+t_color3	phong_lighting(t_scene *scene)
 {
 	t_color3	light_color;
 	t_object	*light;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_vec_operations_2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:07:39 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/14 14:39:49 by jaemjung         ###   ########.fr       */
+/*   Updated: 2022/06/26 13:35:43 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,7 +6,7 @@
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:22 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/25 17:11:17 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/26 13:29:41 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_plane	*plane(t_point3 center, t_vec3 dir, double radius)
 	return (plane);
 }
 
-t_light		*light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio)
+t_light	*light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio)
 {
 	t_light	*light;
 

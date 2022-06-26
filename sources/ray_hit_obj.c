@@ -6,7 +6,7 @@
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:39:21 by jaemjung          #+#    #+#             */
-/*   Updated: 2022/06/25 16:13:18 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/26 13:28:55 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_bool	hit(t_object *obj, t_ray *ray, t_hit_record *rec)
 {
-	t_bool		did_hit;
+	t_bool			did_hit;
 	t_hit_record	tmp;
 
 	tmp = *rec;
