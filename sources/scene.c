@@ -6,7 +6,7 @@
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:29 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/25 17:13:29 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/26 17:35:05 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,32 @@ t_canvas	canvas(int	width, int height)
 	return (canvas);
 }
 
-t_camera	camera(t_canvas *canvas, t_point3 orig)
+t_vec3	cam_set_vup(t_vec3 dir)
+{
+	if (dir.x == 0 && dir.y != 0 && dir.z == 0)
+		return (vec3(0, dir.y, EPSILON));
+	else
+		return (vec3(0, 1, 0));
+}
+
+t_camera	camera(t_canvas *canvas, t_point3 orig, t_vec3 dir, double fov)
 {
 	t_camera	cam;
-	double		focal_len;
-	double		viewport_height;
+	t_vec3		w;
+	t_vec3		u;
+	t_vec3		v;
 
-	viewport_height = 2.0;
-	focal_len = 1.0;
 	cam.orig = orig;
-	cam.viewport_h = viewport_height;
-	cam.viewport_w = viewport_height * canvas->aspect_ratio;
-	cam.focal_len = focal_len;
-	cam.horizontal = vec3(cam.viewport_w, 0, 0);
-	cam.vertical = vec3(0, cam.viewport_h, 0);
+	cam.focal_len = tan((fov * PI / 180.0) / 2.0);
+	cam.viewport_h = cam.focal_len * 2;
+	cam.viewport_w = cam.viewport_h * canvas->aspect_ratio;
+	w = vunit(vmult(dir, -1));
+	u = vunit(vcross(cam_set_vup(cam.dir), w));
+	v = vcross(w, u);
+	cam.horizontal = vmult(u, cam.viewport_w);
+	cam.vertical = vmult(v, cam.viewport_h);
 	// 왼쪽 아래 코너점 좌표, origin - horizontal / 2 - vertical / 2 - vec3(0,0,focal_length)
-	cam.left_bottom = vminus(vminus(vminus(cam.orig, vdivide(cam.horizontal, 2)),
-								vdivide(cam.vertical, 2)), vec3(0, 0, focal_len));
+	cam.left_bottom = vminus(vminus(vminus(cam.orig, vdivide(cam.horizontal, 2)), vdivide(cam.vertical, 2)), w);
 	return (cam);
 }
 
@@ -53,17 +62,14 @@ t_scene	*scene_init(void)
 	if (scene == NULL)
 		error("scene malloc failed");
 	scene->canvas = canvas(WIN_W, WIN_H);
-	scene->camera = camera(&scene->canvas, point3(0, 0, 7));
+	scene->camera = camera(&scene->canvas, point3(0, -10, 7), vec3(0, 0.6, -0.3), 120);
 	world = NULL;
-	obj_add(&world, object(PL, plane(point3(100, -10, 0), vec3(1, 1, -1), INF), color3(0, 0.7, 0)));
-	obj_add(&world, object(SP, sphere(point3(-2, 0, -5), 2), color3(0, 0.5, 0.5)));
-	obj_add(&world, object(CY, cylinder(point3(4, -2, -5), 1, vec3(0, 1, 1), 4), color3(0.7, 0, 0)));
-	obj_add(&world, object(CY, cylinder(point3(8, -2, -5), 1, vec3(0, 1, 1), 4), color3(0.7, 0.1, 0)));
-	obj_add(&world, object(CY, cylinder(point3(12, -2, -5), 1, vec3(0, 1, 1), 4), color3(0.7, 0.2, 0)));
-	obj_add(&world, object(CY, cylinder(point3(16, -2, -5), 1, vec3(0, 1, 1), 4), color3(0.7, 0.3, 0)));
-	
+	obj_add(&world, object(PL, plane(point3(0, 0, -5), vec3(0, 0, 1), INF), color3(155/255, 255/255, 150/255)));
+	obj_add(&world, object(SP, sphere(point3(0, 0, 3), 4), color3(0.3, 0.7, 1)));
+	obj_add(&world, object(CY, cylinder(point3(0, 0, 0), 2.2, vec3(1, 1, 1), 21.42), color3(10/255, 0, 255/255)));
+	obj_add(&world, object(CY, cylinder(point3(0, 0, 0), 30, vec3(0, 0, -1), 1.42), color3(0.7, 0.1, 0)));
 	scene->world = world;
-	light = object(LIGHT_POINT, light_point(point3(0, -40, 20), color3(1, 1, 1), 0.3), color3(0, 0, 0));
+	light = object(LIGHT_POINT, light_point(point3(0, 0, 30), color3(1, 1, 1), 0.7), color3(0, 0, 0));
 	scene->light = light;
 	ka = 0.2;
 	scene->ambient = vmult(color3(1,1,1), ka);
