@@ -6,7 +6,7 @@
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:13:40 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/26 16:18:29 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/27 02:34:39 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@ typedef int	t_object_type;
 
 # define EPSILON 1e-6
 # define PI 3.14159265359
-# define INF INT32_MAX
 
 typedef int	t_bool;
 
 # define FALSE 0
 # define TRUE 1
 
-# define LUMEN 3
+# define LUMEN 2
 
 typedef struct s_mlx_info
 {

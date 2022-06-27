@@ -6,7 +6,7 @@
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:29 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/26 17:35:05 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/27 02:35:05 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_scene	*scene_init(void)
 	scene->canvas = canvas(WIN_W, WIN_H);
 	scene->camera = camera(&scene->canvas, point3(0, -10, 7), vec3(0, 0.6, -0.3), 120);
 	world = NULL;
-	obj_add(&world, object(PL, plane(point3(0, 0, -5), vec3(0, 0, 1), INF), color3(155/255, 255/255, 150/255)));
+	obj_add(&world, object(PL, plane(point3(0, 0, -5), vec3(0, 0, 1), INFINITY), color3(155/255, 255/255, 150/255)));
 	obj_add(&world, object(SP, sphere(point3(0, 0, 3), 4), color3(0.3, 0.7, 1)));
 	obj_add(&world, object(CY, cylinder(point3(0, 0, 0), 2.2, vec3(1, 1, 1), 21.42), color3(10/255, 0, 255/255)));
 	obj_add(&world, object(CY, cylinder(point3(0, 0, 0), 30, vec3(0, 0, -1), 1.42), color3(0.7, 0.1, 0)));

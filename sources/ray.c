@@ -6,7 +6,7 @@
 /*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:18 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/25 16:17:57 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/27 02:32:59 by jaemung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_hit_record record_init(void)
 	t_hit_record	record;
 
 	record.tmin = EPSILON;
-	record.tmax = INF;
+	record.tmax = INFINITY;
 	return (record);
 }
 
