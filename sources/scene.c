@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 22:23:29 by jaemung           #+#    #+#             */
-/*   Updated: 2022/06/27 02:35:05 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/27 14:17:23 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
 
-t_canvas	canvas(int	width, int height)
+t_canvas	canvas(int width, int height)
 {
 	t_canvas canvas;
 
@@ -71,8 +71,7 @@ t_scene	*scene_init(void)
 	scene->world = world;
 	light = object(LIGHT_POINT, light_point(point3(0, 0, 30), color3(1, 1, 1), 0.7), color3(0, 0, 0));
 	scene->light = light;
-	ka = 0.2;
+	ka = 0.1;
 	scene->ambient = vmult(color3(1,1,1), ka);
 	return (scene);
 }
-

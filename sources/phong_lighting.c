@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_lighting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaemung <jaemjung@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: jaemjung <jaemjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:40:39 by jaemjung          #+#    #+#             */
-/*   Updated: 2022/06/26 13:29:36 by jaemung          ###   ########.fr       */
+/*   Updated: 2022/06/27 14:02:42 by jaemjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ t_color3	point_light_get(t_scene *scene, t_light *light)
 	diffuse = vmult(light->light_color, kd);
 	view_dir = vunit(vmult(scene->ray.dir, -1));
 	reflect_dir = reflect(vmult(light_dir, -1), scene->rec.normal);
-	ksn = 32; // shininess value
-	ks = 0.6; // specular strength
+	ksn = 64; // shininess value
+	ks = 0.3; // specular strength
 	spec = pow(fmax(vdot(view_dir, reflect_dir), 0.0), ksn);
 	specular = vmult(vmult(light->light_color, ks), spec);
 	brightness = light->bright_ratio * LUMEN; // 기준 광속/광량을 정의한 매크로
